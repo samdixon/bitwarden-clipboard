@@ -1,5 +1,4 @@
-def main():
-    print("Hello World")
+import bitwarden_clipboard.cli as cli
 
-if __name__ == "__main__":
-    main()
+def main():
+    cli.cli()
