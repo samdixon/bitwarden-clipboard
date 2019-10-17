@@ -1,6 +1,7 @@
 import argparse
 import logging
 import shutil
+import bitwarden_clipboard.core as core
 
 logger = logging.getLogger(__name__)
 
@@ -41,4 +42,11 @@ def confirm_binary_values(values: dict) -> bool:
 def cli():
     args = get_args()
     set_log_level(args.debug)
-    confirm_binary_values(check_binaries(["fzf", "bw"]))
+
+    confirm_binary_values(check_binaries(["fzf", "bw", "cat"]))
+
+    cachefile = core.Cache()
+
+    account, username = core.fzf_interop(cachefile.file_path)
+
+    core.password_to_clipboard(core.fetch_password(account, username))
