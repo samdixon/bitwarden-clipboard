@@ -4,6 +4,8 @@ from subprocess import Popen, PIPE
 from bitwarden_keyring import bw, get_session, get_password
 import pyperclip
 
+session = get_session(os.environ)
+
 class Cache():
     def __init__(self):
         self.cache_dir = os.path.expanduser("~/.config/bitwarden_clipboard/")
@@ -24,10 +26,10 @@ class Cache():
 
     def _get_cache_date(self):
         pass
-        
+
     @staticmethod
     def _get_bw_items():
-        session = get_session(os.environ)
+        #session = get_session(os.environ)
         t = bw("list", "items", session=session)
         t = t.decode("utf-8")
         return t
@@ -71,8 +73,8 @@ def fzf_interop(file: str) -> str:
     s1, s2 = outstring.split("|")
     return s1,s2
 
-def fetch_password(account: str, user: str) -> str:
-    return get_password(account.strip(), user.strip())
+def fetch_password(account: str, user: str, session: str) -> str:
+    return get_password(account.strip(), user.strip(), session)
 
 
 def password_to_clipboard(password: str) -> None:
