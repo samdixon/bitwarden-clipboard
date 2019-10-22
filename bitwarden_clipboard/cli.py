@@ -49,4 +49,4 @@ def cli():
 
     account, username = core.fzf_interop(cachefile.file_path)
 
-    core.password_to_clipboard(core.fetch_password(account, username))
+    core.password_to_clipboard(core.fetch_password(account, username, core.session))
